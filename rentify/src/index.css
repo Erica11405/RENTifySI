@@ -1,0 +1,143 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f8f8f8;
+  color: #333;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0d6efd;
+  color: white;
+  padding: 1rem 2rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 20px;
+  padding: 0.3rem 0.8rem;
+  margin-left: 1rem;
+}
+
+.search-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 0.5rem;
+}
+
+.search-input {
+  border: none;
+  outline: none;
+  font-size: 0.9rem;
+}
+
+.hero {
+  position: relative;
+  background: url("/car/background.png") center/cover no-repeat;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  color: gray;
+}
+
+.hero-btn {
+  margin-top: 1rem;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  background: #ffc107;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.popular {
+  padding: 3rem 2rem;
+  text-align: center;
+  background: #fff; 
+}
+
+.popular h2 {
+  font-size: 2rem;
+  color: #0d6efd;
+  margin-bottom: 1.5rem;
+}
+
+.car-list {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.car-card {
+  background: white;
+  padding: 1rem;
+  border-radius: 10px;
+  width: 250px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-align: center;
+}
+
+.car-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.car-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 0.8rem;
+}
+
+.car-card h3 {
+  margin: 0.5rem 0;
+  font-size: 1.2rem;
+  color: #0d6efd;
+}
+
+.car-card p {
+  font-size: 1rem;
+  color: #555;
+}
+
+@media (max-width: 768px) {
+  .car-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .car-card {
+    width: 90%;
+  }
+}
+
+.about {
+  background: #e9ecef;
+  padding: 2rem;
+  text-align: center;
+}
+
+.footer {
+  background: #0d6efd;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+}
