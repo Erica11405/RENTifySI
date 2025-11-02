@@ -1,13 +1,23 @@
-import React from "react";
+import React, {useState} from "react";
 
 function Home() {
+  const [showModal, setShowModal] = useState (false);
+  const handleOpen=()=> setShowModal(true);
+  const handleClose=()=> setShowModal(false);
+
+  const handleSubmit = (e) =>{
+    e.preventDefault();
+    alert("Booking Sent");
+    setShowModal(false);
+  };
+
   return (
     <div className="home">
       <section className="hero">
         <div className="hero-content">
           <h1>Find Your Perfect Ride</h1>
           <p>Rent the best cars at affordable prices — anytime, anywhere.</p>
-          <button className="hero-btn">Book Now</button>
+          <button className="hero-btn" onClick={handleOpen}>Book Now</button>
         </div>
       </section>
 
@@ -48,7 +58,50 @@ function Home() {
           day or a week, we got you covered.
         </p>
       </section>
+
+
+  {/*modal form*/}
+  {showModal && (
+    <div className="modalForm">
+      <div className="modal">
+        <button className="closeBtn" onClick={handleClose}>X</button>
+        <h2>Book Your Car Now!!</h2>
+        <form onSubmit={handleSubmit}>
+          <label>
+            FullName:
+            <input type="text" required/></label>
+
+          <label>
+            Email:
+            <input type="email" required/>
+            </label>
+
+          <label>
+            Car
+            <select required>
+              <option value="">Select your prefered Car</option>
+              <option>option 1</option>
+              <option>option 2</option>
+              <option>option 3</option>
+            </select>
+          </label>
+
+          <label>
+            Pickup date
+            <input type="date" required/>
+          </label>
+
+          <label>
+            Return date 
+            <input type="date" required/>
+          </label>
+
+          <button type="submit" className="submitBtn">Submit</button>
+        </form>
+      </div>
     </div>
+  )}
+  </div>
   );
 }
 
