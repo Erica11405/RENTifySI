@@ -9,10 +9,10 @@ function Home() {
   const [showBookForm, setShowBookForm] = useState(false);
 
   const cars = [
-    { id: 1, name: "Hyundai Starex", price: "₱50/day", img: "/car/car1.png" },
-    { id: 2, name: "Toyota Hilux", price: "₱60/day", img: "/car/car2.png" },
-    { id: 3, name: "Toyota Innova", price: "₱120/day", img: "/car/car3.png" },
-    { id: 4, name: "Toyota Hiace", price: "₱200/day", img: "/car/Hiace.png" },
+    { id: 1, name: "Hyundai Starex", price: "₱50/day", seatNum: "12 people",  img: "/car/car1.png" },
+    { id: 2, name: "Toyota Hilux", price: "₱60/day", seatNum: "5 people", img: "/car/car2.png" },
+    { id: 3, name: "Toyota Innova", price: "₱120/day", seatNum: "7-8 people", img: "/car/car3.png" },
+    { id: 4, name: "Toyota Hiace", price: "₱200/day", seatNum: "15 people",img: "/car/Hiace.png" },
   ];
 
   const navigate = useNavigate();
@@ -42,7 +42,6 @@ function Home() {
   const handleRentFromDetails = () => {
     setShowCarDetails(false);
     setShowBookForm(true);
-    // selectedCar remains set
   };
 
   // Handle booking form submission

@@ -1,6 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 
 function BookForm({ cars, selectedCar, onSubmit, onClose }) {
+
+  const [fullName, setFullName] = useState('')
+  const [email, setEmail] = useState('')
+  const [pickup_date, setPickupDate] = useState('')
+  const [return_date, setReturndate] = useState('')
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    onSubmit({
+      fullName,
+      email,
+      car: selectedCar?.name,
+      pickup_date,
+      return_date,
+    });
+  };
+
   return (
     <div className="modalForm">
       <div className="modal">
@@ -9,15 +27,15 @@ function BookForm({ cars, selectedCar, onSubmit, onClose }) {
         </button>
 
         <h2>Book Your Car Now!!</h2>
-        <form onSubmit={onSubmit}>
+        <form onSubmit={handleSubmit}>
           <label>
             Full Name:
-            <input className="input" type="text" required />
+            <input className="input" type="text" value={fullName} onChange={(e)=> setFullName(e.target.value)} required />
           </label>
 
           <label>
             Email:
-            <input className="input" type="email" required />
+            <input className="input" type="email" value={email} onChange={(e)=> setEmail(e.target.value)} required />
           </label>
 
           <label>
@@ -36,12 +54,12 @@ function BookForm({ cars, selectedCar, onSubmit, onClose }) {
 
           <label>
             Pickup date:
-            <input className="input" type="date" required />
+            <input className="input" type="date" value={pickup_date} onChange={(e)=> setPickupDate(e.target.value)} required />
           </label>
 
           <label>
             Return date:
-            <input className="input" type="date" required />
+            <input className="input" type="date" value={return_date} onChange={(e)=> setReturndate(e.target.value)} required />
           </label>
 
           <button type="submit" className="submitBtn">

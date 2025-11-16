@@ -11,9 +11,9 @@ function CarDetails({ car, onClose, onRent }) {
         </button>
 
         <h2>{car.name}</h2>
-        <img src={car.img} alt={car.name} />
+        <img src={car.image} alt={car.name} />
         <p>Price: {car.price}</p>
-        <p>View details and rent this car now</p>
+        <p>Seat capacity: {car.seatNum}</p>
 
         <button className="hero-btn" onClick={onRent}>
           Rent This Car

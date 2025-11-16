@@ -24,6 +24,7 @@ function Navbar() {
         <li><a href="#cars">Cars</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
+        <li><Link to="/">Profile</Link></li>
       </ul>
     </nav>
   );
