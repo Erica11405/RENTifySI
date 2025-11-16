@@ -1,19 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import CarDetails from "../components/CarDetails";
 import BookForm from "../components/BookForm";
+import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
 function Home() {
+
+  const [cars, setCars] = useState([])
   const [selectedCar, setSelectedCar] = useState(null);
   const [showCarDetails, setShowCarDetails] = useState(false);
   const [showBookForm, setShowBookForm] = useState(false);
-
-  const cars = [
-    { id: 1, name: "Hyundai Starex", price: "₱50/day", seatNum: "12 people",  img: "/car/car1.png" },
-    { id: 2, name: "Toyota Hilux", price: "₱60/day", seatNum: "5 people", img: "/car/car2.png" },
-    { id: 3, name: "Toyota Innova", price: "₱120/day", seatNum: "7-8 people", img: "/car/car3.png" },
-    { id: 4, name: "Toyota Hiace", price: "₱200/day", seatNum: "15 people",img: "/car/Hiace.png" },
-  ];
 
   const navigate = useNavigate();
 
@@ -51,6 +47,14 @@ function Home() {
     handleCloseModals();
   };
 
+    useEffect(() => {
+    const fetchCar = async () => {
+      const response = await axios.get("http://127.0.0.1:8000/api/cars/");
+      setCars (response.data)
+    }
+    fetchCar()
+  }, [])
+
   return (
     <div className="home">
       {/* Hero Section */}
@@ -68,9 +72,9 @@ function Home() {
       <section id="cars" className="popular">
         <h2>Popular Cars</h2>
         <div className="car-list">
-          {cars.map((car) => (
+          {cars.slice(0,4).map((car) => (
             <div key={car.id} className="car-card">
-              <img src={car.img} alt={car.name} />
+              <img src={car.image} alt={car.name} />
               <h3>{car.name}</h3>
               <p>{car.price}</p>
               <button className="hero-btn" onClick={() => handleViewCar(car)}>

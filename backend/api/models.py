@@ -10,7 +10,7 @@ class Car (models.Model):
 
 class BookCar (models.Model):
     fullName = models.CharField(max_length=255)
-    email = models.CharField(max_length=255, unique=True)
+    email = models.CharField(max_length=255)
     car = models.CharField(max_length=255)
     pickup_date = models.DateField()
     return_date = models.DateField()

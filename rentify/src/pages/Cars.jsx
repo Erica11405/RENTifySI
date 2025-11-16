@@ -77,7 +77,6 @@ function Cars() {
               <img src={car.image} alt={car.name} />
               <h3>{car.name}</h3>
               <p>{car.price}</p>
-              <p>{car.seatNum}</p>
               <button className="hero-btn" onClick={() => handleViewCar(car)}>
                 View
               </button>
