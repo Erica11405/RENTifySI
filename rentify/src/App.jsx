@@ -20,20 +20,20 @@ import AdminBookings from "./admin/AdminBookings";
 function App() {
   return (
     <Routes>
-      {/* ========== AUTH ROUTES (NO navbar/footer) ========== */}
       <Route path="/login" element={
         <AuthLayout>
           <LogIn />
         </AuthLayout>
       } />
       
+      {/* admin*/}
       <Route path="/admin/login" element={
         <AuthLayout>
           <AdminLogin />
         </AuthLayout>
       } />
 
-      {/* ========== USER ROUTES (WITH Navbar + Footer) ========== */}
+      {/*user*/}
       <Route path="/" element={
         <UserLayout>
           <Home />
@@ -52,7 +52,7 @@ function App() {
         </UserLayout>
       } />
 
-      {/* ========== ADMIN ROUTES (WITH AdminSidebar) ========== */}
+      {/* admin */}
       <Route path="/admin/dashboard" element={
         <AdminLayout>
           <AdminHome />

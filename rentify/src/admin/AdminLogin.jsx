@@ -8,7 +8,7 @@ function AdminLogin() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // TEMP LOGIN (replace with Django API later)
+    
     if (email === "admin@gmail.com" && password === "admin123") {
       localStorage.setItem("adminToken", "dummy_token");
       navigate("/admin/dashboard");

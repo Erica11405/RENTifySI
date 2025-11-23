@@ -24,7 +24,7 @@ function Navbar() {
         <li><Link to="/cars">Cars</Link></li>
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
-        <li><Link to="/profile">Profile</Link></li> {/* FIXED: was "/" now "/profile" */}
+        <li><Link to="/profile">Profile</Link></li>
       </ul>
     </nav>
   );

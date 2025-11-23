@@ -73,10 +73,10 @@ function BookForm({ cars, selectedCar, onSubmit, onClose, setMessage, message })
             <input className="input" type="date" value={return_date} onChange={(e)=> setReturndate(e.target.value)} required />
           </label>
 
-          <label>
+          {/*<label>
             Attach Image:
             <input className="input" type="file" onChange={(e)=> setImage(e.emage)} required />
-          </label>
+          </label>*/}
 
           
 
