@@ -10,6 +10,7 @@ function Home() {
   const [selectedCar, setSelectedCar] = useState(null);
   const [showCarDetails, setShowCarDetails] = useState(false);
   const [showBookForm, setShowBookForm] = useState(false);
+  const [message, setMessage] = useState('');
 
   const navigate = useNavigate();
 
@@ -40,10 +41,26 @@ function Home() {
     setShowBookForm(true);
   };
 
-  // Handle booking form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert("Booking Sent");
+
+  const handleSubmit = async (formData) => {
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/book_car/",
+        formData
+      );
+
+      console.log(response.data);
+      setMessage("Booking Sent");
+
+      const timer = setTimeout(() => {
+        setMessage('');
+      }, 2000)
+
+      return () => clearTimeout(timer);
+    } catch (error) {
+      console.log(error);
+    }
+
     handleCloseModals();
   };
 
@@ -122,6 +139,8 @@ function Home() {
           selectedCar={selectedCar}
           onSubmit={handleSubmit}
           onClose={handleCloseModals}
+          message={message}
+          setMessage={message}
         />
       )}
     </div>

@@ -10,20 +10,8 @@ function Cars() {
   const [selectedCar, setSelectedCar] = useState(null);
   const [showCarDetails, setShowCarDetails] = useState(false);
   const [showBookForm, setShowBookForm] = useState(false);
+  const [message, setMessage] = useState('');
 
-  // const cars = [
-  //   { id: 1, name: "Hyundai Starex", price: "₱50/day", seatNum: "12 people",  img: "/car/car1.png" },
-  //   { id: 2, name: "Toyota Hilux", price: "₱60/day", seatNum: "5 people", img: "/car/car2.png" },
-  //   { id: 3, name: "Toyota Innova", price: "₱120/day", seatNum: "7-8 people", img: "/car/car3.png" },
-  //   { id: 4, name: "Toyota Hiace", price: "₱200/day", seatNum: "15 people",img: "/car/Hiace.png" },
-  //   { id: 5, name: "car5", price: "₱/day", img: "/car/samplepic.png" },
-  //   { id: 6, name: "car6", price: "₱/day", img: "/car/samplepic.png" },
-  //   { id: 8, name: "car8", price: "₱/day", img: "/car/samplepic.png" },
-  //   { id: 9, name: "car8", price: "₱/day", img: "/car/samplepic.png" },
-  //   { id: 10, name: "car8", price: "₱/day", img: "/car/samplepic.png" },
-  //   { id: 11, name: "car8", price: "₱/day", img: "/car/samplepic.png" },
-  //   { id: 12, name: "car8", price: "₱/day", img: "/car/samplepic.png" }
-  // ];
 
   const handleViewCar = (car) => {
     setSelectedCar(car);
@@ -43,16 +31,25 @@ function Cars() {
   };
 
   const handleSubmit = async (formData) => {
-  try {
-    const response = await axios.post(
-      "http://127.0.0.1:8000/api/book_car/",
-      formData
-    );
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/book_car/",
+        formData
+      );
 
-    console.log(response.data);
-  } catch (error) {
-    console.log(error);
-  }
+      console.log(response.data);
+
+      setMessage("Booking Sent");
+
+      const timer = setTimeout(() => {
+        setMessage('');
+      }, 2000)
+
+      return () => clearTimeout(timer);
+      
+    } catch (error) {
+      console.log(error);
+    }
 
     handleCloseModals();
   };
@@ -100,6 +97,8 @@ function Cars() {
           selectedCar={selectedCar}
           onSubmit={handleSubmit}
           onClose={handleCloseModals}
+          message={message}
+          setMessage={setMessage}
         />
       )}
     </>

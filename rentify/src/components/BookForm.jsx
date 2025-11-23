@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function BookForm({ cars, selectedCar, onSubmit, onClose }) {
+function BookForm({ cars, selectedCar, onSubmit, onClose, setMessage, message }) {
 
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
@@ -27,7 +27,16 @@ function BookForm({ cars, selectedCar, onSubmit, onClose }) {
         </button>
 
         <h2>Book Your Car Now!!</h2>
+        {
+          message && (
+            <p style={{
+              textAlign: "center",
+              color: "green"
+            }}>{message}</p>
+          )
+        }
         <form onSubmit={handleSubmit}>
+          
           <label>
             Full Name:
             <input className="input" type="text" value={fullName} onChange={(e)=> setFullName(e.target.value)} required />
@@ -52,6 +61,8 @@ function BookForm({ cars, selectedCar, onSubmit, onClose }) {
             </select>
           </label>
 
+          {/* add rent with driver/ without driver */}
+
           <label>
             Pickup date:
             <input className="input" type="date" value={pickup_date} onChange={(e)=> setPickupDate(e.target.value)} required />
@@ -61,6 +72,13 @@ function BookForm({ cars, selectedCar, onSubmit, onClose }) {
             Return date:
             <input className="input" type="date" value={return_date} onChange={(e)=> setReturndate(e.target.value)} required />
           </label>
+
+          <label>
+            Attach Image:
+            <input className="input" type="file" onChange={(e)=> setImage(e.emage)} required />
+          </label>
+
+          
 
           <button type="submit" className="submitBtn">
             Submit
