@@ -6,18 +6,35 @@ function BookForm({ cars, selectedCar, onSubmit, onClose, setMessage, message })
   const [email, setEmail] = useState('')
   const [pickup_date, setPickupDate] = useState('')
   const [return_date, setReturndate] = useState('')
+  const [image, setImage] = useState(null)
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    onSubmit({
+    const formSubmit = new FormData();
+    formSubmit.append("fullName", fullName);
+    formSubmit.append("email", email);
+    formSubmit.append("car", selectedCar ? selectedCar.name :"");
+    formSubmit.append("pickup_date", pickup_date);
+    formSubmit.append("return_date", return_date);
+    formSubmit.append("withDriver", withDriver);
+
+    if (image) formSubmit.append("image", image);
+
+    onSubmit(formSubmit);
+  
+
+    {/*onSubmit({
       fullName,
       email,
       car: selectedCar?.name,
       pickup_date,
       return_date,
-    });
+    }); */}
+
+
   };
+
 
   return (
     <div className="modalForm">
@@ -61,8 +78,20 @@ function BookForm({ cars, selectedCar, onSubmit, onClose, setMessage, message })
             </select>
           </label>
 
-          {/* add rent with driver/ without driver */}
+          {/*<label>
+            Driver Option:
+            <select 
+              className="input" 
+              required 
+              value={withDriver} 
+              onChange={(e) => setWithDriver(e.target.value)}
+            >
+              <option value="withoutDriver">Without Driver</option>
+              <option value="withDriver">With Driver</option>
+            </select>
 
+          </label>
+          */}
           <label>
             Pickup date:
             <input className="input" type="date" value={pickup_date} onChange={(e)=> setPickupDate(e.target.value)} required />
@@ -73,10 +102,10 @@ function BookForm({ cars, selectedCar, onSubmit, onClose, setMessage, message })
             <input className="input" type="date" value={return_date} onChange={(e)=> setReturndate(e.target.value)} required />
           </label>
 
-          {/*<label>
+          <label>
             Attach Image:
-            <input className="input" type="file" onChange={(e)=> setImage(e.emage)} required />
-          </label>*/}
+            <input className="input" type="file" onChange={(e)=> setImage(e.target.files[0])} required />
+          </label>
 
           
 

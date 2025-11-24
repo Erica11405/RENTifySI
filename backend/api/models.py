@@ -14,3 +14,4 @@ class BookCar (models.Model):
     car = models.CharField(max_length=255)
     pickup_date = models.DateField()
     return_date = models.DateField()
+    image = models.ImageField(upload_to="bookings/", blank = True, null = True)

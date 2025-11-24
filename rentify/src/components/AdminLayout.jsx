@@ -6,7 +6,7 @@ import './Admin.css';
 const AdminLayout = ({ children }) => {
   const isAdmin = localStorage.getItem('adminToken');
   
-  // Redirect to login if not authenticated
+  // Redirect to login 
   if (!isAdmin) {
     return <Navigate to="/admin/login" replace />;
   }
@@ -14,7 +14,6 @@ const AdminLayout = ({ children }) => {
   return (
     <div className="admin-layout">
       <AdminSidebar />
-      {/* ✅ FIXED: use the class that matches your CSS */}
       <main className="admin-content-wrapper">
         {children}
       </main>

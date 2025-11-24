@@ -9,4 +9,4 @@ class CarSerializers (serializers.ModelSerializer):
 class BookCarSerializers (serializers.ModelSerializer):
     class Meta:
         model = BookCar
-        fields = ['id', 'fullName', 'email', 'car', 'pickup_date', 'return_date']      
+        fields = ['id', 'fullName', 'email', 'car', 'pickup_date', 'return_date', 'image']      
