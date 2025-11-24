@@ -1,5 +1,3 @@
-/* AdminLayout.css - Place in src/components/ */
-
 /* Admin Layout Container */
 .admin-layout {
   display: flex;
@@ -67,8 +65,7 @@
 /* Admin Content Wrapper */
 .admin-content-wrapper {
   margin-left: 250px; /* Matches sidebar width */
-  padding: 50px;
-  padding-left: 90px;
+  padding: 50px 90px 50px 90px;
   flex: 1;
   box-sizing: border-box;
 }
@@ -79,20 +76,16 @@
   padding: 30px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-
-  /* Center heading + table */
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-
-
 .admin-page h1 {
   margin-bottom: 20px;
   color: #2c3e50;
   font-size: 28px;
-  text-align: center; /* keep heading centered */
+  text-align: center;
 }
 
 /* Dashboard Stats */
@@ -113,7 +106,7 @@
 }
 
 .stat-card h3 {
-  margin: 0 0 10px 0;
+  margin: 0 0 10px;
   font-size: 16px;
   font-weight: normal;
   opacity: 0.9;
@@ -126,16 +119,20 @@
 }
 
 /* Admin Buttons */
-.admin-btn {
+.admin-btn,
+.admin-btn-small {
   background-color: #3498db;
   color: white;
   border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.admin-btn {
   padding: 12px 24px;
   border-radius: 5px;
-  cursor: pointer;
   font-size: 16px;
   margin-bottom: 20px;
-  transition: background-color 0.3s;
 }
 
 .admin-btn:hover {
@@ -143,15 +140,10 @@
 }
 
 .admin-btn-small {
-  background-color: #3498db;
-  color: white;
-  border: none;
   padding: 8px 16px;
   border-radius: 4px;
-  cursor: pointer;
   font-size: 14px;
   margin-right: 5px;
-  transition: background-color 0.3s;
 }
 
 .admin-btn-small:hover {
@@ -168,10 +160,8 @@
 
 /* Admin Table */
 .admin-table {
-  width: auto;          /* shrink to fit content */
-  margin: 0 auto;       /* center horizontally */
+  margin: 20px auto 0;
   border-collapse: collapse;
-  margin-top: 20px;
 }
 
 .admin-table thead {
@@ -206,20 +196,9 @@
   text-transform: uppercase;
 }
 
-.status-badge.pending {
-  background-color: #f39c12;
-  color: white;
-}
-
-.status-badge.confirmed {
-  background-color: #27ae60;
-  color: white;
-}
-
-.status-badge.cancelled {
-  background-color: #e74c3c;
-  color: white;
-}
+.status-badge.pending { background-color: #f39c12; color: white; }
+.status-badge.confirmed { background-color: #27ae60; color: white; }
+.status-badge.cancelled { background-color: #e74c3c; color: white; }
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -235,16 +214,237 @@
     padding: 15px;
   }
 
-  .dashboard-stats {
-    grid-template-columns: 1fr;
+  .dashboard-stats { grid-template-columns: 1fr; }
+  .admin-page { align-items: stretch; }
+  .admin-table { width: 100%; margin: 0; }
+}
+
+/* Car Management */
+.car-add-button,
+.car-submit-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.car-add-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.car-management-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.car-table-header {
+  background-color: #f2f2f2;
+  padding: 12px;
+  text-align: left;
+  border-bottom: 2px solid #ddd;
+}
+
+.car-table-data {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+.car-thumbnail {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.car-edit-button {
+  background-color: #2196F3;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.car-delete-button {
+  background-color: #f44336;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Modal */
+.car-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.car-modal-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.car-form-group { margin-bottom: 20px; }
+.car-label { display: block; margin-bottom: 8px; font-weight: bold; }
+.car-input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.car-image-preview {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  margin-top: 10px;
+  border-radius: 4px;
+}
+
+.car-button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.car-submit-button { padding: 10px 20px; font-size: 16px; }
+.car-cancel-button {
+  flex: 1;
+  background-color: #9e9e9e;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Bookings Table */
+.bookings-table {
+  width: 95%;
+  max-width: 1200px;
+  border-collapse: collapse;
+  margin-top: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.bookings-table-header-group {
+  background-color: #3498db;
+  color: white;
+}
+
+.bookings-table-header {
+  padding: 15px 10px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Booking Page Container */
+.admin-content {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  margin: 20px auto;
+  max-width: 1200px;
+}
+
+.admin-content h1 {
+  font-size: 28px;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Booking Table */
+.bookingTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Table Header */
+.bookingTable thead {
+  background-color: #3498db;
+  color: white;
+}
+
+.bookingTable th {
+  padding: 15px 12px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Table Rows */
+.bookingTable tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.bookingTable tr:hover {
+  background-color: #e8f5fb;
+}
+
+/* Table Data */
+.bookingTable td {
+  padding: 12px 12px;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Last Row Cleanup */
+.bookingTable tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Image Link */
+.bookingTable a {
+  color: #2980b9;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.bookingTable a:hover {
+  color: #3498db;
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .admin-content {
+    padding: 15px;
+    overflow-x: auto;
   }
 
-  .admin-page {
-    align-items: stretch; /* fallback for small screens */
-  }
-
-  .admin-table {
-    width: 100%; /* full width on mobile */
-    margin: 0;
+  .bookingTable {
+    min-width: 700px; /* allow horizontal scroll */
   }
 }

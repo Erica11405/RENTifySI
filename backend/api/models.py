@@ -12,6 +12,8 @@ class BookCar (models.Model):
     fullName = models.CharField(max_length=255)
     email = models.CharField(max_length=255)
     car = models.CharField(max_length=255)
+    withDriver = models.CharField(max_length=50, default="withoutDriver")
     pickup_date = models.DateField()
     return_date = models.DateField()
     image = models.ImageField(upload_to="bookings/", blank = True, null = True)
+    status = models.CharField(max_length=20, default="Pending")

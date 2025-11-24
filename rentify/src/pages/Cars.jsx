@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CarDetails from "../components/CarDetails";
 import BookForm from "../components/BookForm";
+import Navbar from "../components/Navbar";
 import axios from 'axios';
 
 function Cars() {
@@ -11,6 +12,8 @@ function Cars() {
   const [showCarDetails, setShowCarDetails] = useState(false);
   const [showBookForm, setShowBookForm] = useState(false);
   const [message, setMessage] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const filteredCars = cars.filter((car) => car.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
 
   const handleViewCar = (car) => {
@@ -65,11 +68,12 @@ function Cars() {
 
   return (
     <>
+    <Navbar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
       <div className="cars-page">
         <h1> Available Cars</h1>
 
         <div className="car-list">
-          {cars.map((car) => (
+          {filteredCars.map((car) => (
             <div key={car.id} className="car-card">
               <img src={car.image} alt={car.name} />
               <h3>{car.name}</h3>

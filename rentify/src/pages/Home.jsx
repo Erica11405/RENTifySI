@@ -3,6 +3,7 @@ import CarDetails from "../components/CarDetails";
 import BookForm from "../components/BookForm";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 function Home() {
 
@@ -11,6 +12,8 @@ function Home() {
   const [showCarDetails, setShowCarDetails] = useState(false);
   const [showBookForm, setShowBookForm] = useState(false);
   const [message, setMessage] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const filteredCars = cars.filter((car) => car.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
   const navigate = useNavigate();
 
@@ -84,6 +87,8 @@ function Home() {
   }, [])
 
   return (
+    <>
+    <Navbar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
     <div className="home">
       {/* Hero Section */}
       <section className="hero">
@@ -100,7 +105,7 @@ function Home() {
       <section id="cars" className="popular">
         <h2>Popular Cars</h2>
         <div className="car-list">
-          {cars.slice(0,4).map((car) => (
+          {filteredCars.slice(0,4).map((car) => (
             <div key={car.id} className="car-card">
               <img src={car.image} alt={car.name} />
               <h3>{car.name}</h3>
@@ -155,6 +160,8 @@ function Home() {
         />
       )}
     </div>
+    </>
+    
   );
 }
 

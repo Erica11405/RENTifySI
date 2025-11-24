@@ -10,6 +10,7 @@ import Home from "./pages/Home";
 import Cars from "./pages/Cars";
 import Profile from "./pages/Profile";
 import LogIn from "./pages/LogIn";
+import Notif from "./pages/Notif";
 
 // ADMIN pages
 import AdminLogin from "./admin/AdminLogin";
@@ -68,13 +69,22 @@ function App() {
       <Route
         path="/profile"
         element={
-          <UserProtectRoute>
-            <UserLayout>
+          <UserProtectRoute>           
               <Profile />
-            </UserLayout>
           </UserProtectRoute>
         }
       />
+
+      <Route 
+        path="/notif" 
+        element={
+        <UserProtectRoute>           
+              <Notif/>
+        </UserProtectRoute> 
+        } 
+        
+      />
+
 
       {/* ADMIN PAGES (PROTECTED) */}
       <Route

@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 
-// Removed setMessage from destructuring as it's not used/needed here
 function BookForm({ cars, selectedCar, onSubmit, onClose, message }) {
 
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
-  // FIX 1: Add state to manage the selected car name. Initialize it if a car was pre-selected via prop.
   const [selectedCarName, setSelectedCarName] = useState(selectedCar ? selectedCar.name : "")
+  const [withDriver, setWithDriver] = useState("withoutDriver")
   const [pickup_date, setPickupDate] = useState('')
   const [return_date, setReturndate] = useState('')
   const [image, setImage] = useState(null)
@@ -21,7 +20,7 @@ function BookForm({ cars, selectedCar, onSubmit, onClose, message }) {
     formSubmit.append("car", selectedCarName); 
     formSubmit.append("pickup_date", pickup_date);
     formSubmit.append("return_date", return_date);
-    //formSubmit.append("withDriver", withDriver);
+    formSubmit.append("withDriver", withDriver);
   
     if (selectedCarName === "") {
         alert("Please select a car.");
@@ -81,7 +80,7 @@ function BookForm({ cars, selectedCar, onSubmit, onClose, message }) {
             </select>
           </label>
 
-          {/*<label>
+          <label>
             Driver Option:
             <select 
               className="input" 
@@ -93,7 +92,7 @@ function BookForm({ cars, selectedCar, onSubmit, onClose, message }) {
               <option value="withDriver">With Driver</option>
             </select>
 
-          </label>*/}
+          </label>
           
           <label>
             Pickup date:
