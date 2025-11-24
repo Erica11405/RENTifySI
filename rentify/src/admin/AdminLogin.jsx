@@ -10,11 +10,12 @@ function AdminLogin() {
     e.preventDefault();
     
     if (email === "admin@gmail.com" && password === "admin123") {
-      localStorage.setItem("adminToken", "dummy_token");
+      localStorage.setItem("adminId", "1");
       navigate("/admin/dashboard");
-    } else {
-      alert("Invalid credentials");
-    }
+      }else {
+        alert("Invalid credentials");
+      }
+
   };
 
   return (

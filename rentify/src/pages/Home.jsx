@@ -51,6 +51,8 @@ function Home() {
 
       console.log(response.data);
       setMessage("Booking Sent");
+      
+      handleCloseModals(); // Close modals after successful submission
 
       const timer = setTimeout(() => {
         setMessage('');
@@ -58,10 +60,19 @@ function Home() {
 
       return () => clearTimeout(timer);
     } catch (error) {
-      console.log(error);
-    }
 
-    handleCloseModals();
+      console.error("Booking submission failed:", error.response ? error.response.data : error.message);
+      
+
+      const errorMessage = error.response?.data?.car ? `Error: ${error.response.data.car}` : "Booking failed. Please check your inputs.";
+      setMessage(errorMessage);
+      
+      const timer = setTimeout(() => {
+        setMessage('');
+      }, 5000) 
+
+      return () => clearTimeout(timer);
+    }
   };
 
     useEffect(() => {
@@ -140,7 +151,7 @@ function Home() {
           onSubmit={handleSubmit}
           onClose={handleCloseModals}
           message={message}
-          setMessage={message}
+
         />
       )}
     </div>

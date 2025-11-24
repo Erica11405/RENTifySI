@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 
-function BookForm({ cars, selectedCar, onSubmit, onClose, setMessage, message }) {
+// Removed setMessage from destructuring as it's not used/needed here
+function BookForm({ cars, selectedCar, onSubmit, onClose, message }) {
 
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
+  // FIX 1: Add state to manage the selected car name. Initialize it if a car was pre-selected via prop.
+  const [selectedCarName, setSelectedCarName] = useState(selectedCar ? selectedCar.name : "")
   const [pickup_date, setPickupDate] = useState('')
   const [return_date, setReturndate] = useState('')
   const [image, setImage] = useState(null)
@@ -14,25 +17,20 @@ function BookForm({ cars, selectedCar, onSubmit, onClose, setMessage, message })
     const formSubmit = new FormData();
     formSubmit.append("fullName", fullName);
     formSubmit.append("email", email);
-    formSubmit.append("car", selectedCar ? selectedCar.name :"");
+    
+    formSubmit.append("car", selectedCarName); 
     formSubmit.append("pickup_date", pickup_date);
     formSubmit.append("return_date", return_date);
-    formSubmit.append("withDriver", withDriver);
+    //formSubmit.append("withDriver", withDriver);
+  
+    if (selectedCarName === "") {
+        alert("Please select a car.");
+        return;
+    }
 
     if (image) formSubmit.append("image", image);
 
     onSubmit(formSubmit);
-  
-
-    {/*onSubmit({
-      fullName,
-      email,
-      car: selectedCar?.name,
-      pickup_date,
-      return_date,
-    }); */}
-
-
   };
 
 
@@ -66,7 +64,12 @@ function BookForm({ cars, selectedCar, onSubmit, onClose, setMessage, message })
 
           <label>
             Car:
-            <select className="input" required defaultValue="">
+            <select 
+              className="input" 
+              required 
+              value={selectedCarName} 
+              onChange={(e)=> setSelectedCarName(e.target.value)} 
+            >
               <option value="" disabled>
                 {selectedCar ? selectedCar.name : "Select your preferred car"}
               </option>
@@ -90,8 +93,8 @@ function BookForm({ cars, selectedCar, onSubmit, onClose, setMessage, message })
               <option value="withDriver">With Driver</option>
             </select>
 
-          </label>
-          */}
+          </label>*/}
+          
           <label>
             Pickup date:
             <input className="input" type="date" value={pickup_date} onChange={(e)=> setPickupDate(e.target.value)} required />
@@ -108,7 +111,6 @@ function BookForm({ cars, selectedCar, onSubmit, onClose, setMessage, message })
           </label>
 
           
-
           <button type="submit" className="submitBtn">
             Submit
           </button>

@@ -4,7 +4,7 @@ import AdminSidebar from '../admin/AdminSidebar';
 import './Admin.css';
 
 const AdminLayout = ({ children }) => {
-  const isAdmin = localStorage.getItem('adminToken');
+  const isAdmin = localStorage.getItem('adminId');
   
   // Redirect to login 
   if (!isAdmin) {
