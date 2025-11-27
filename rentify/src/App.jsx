@@ -1,26 +1,27 @@
 import { Routes, Route } from "react-router-dom";
 
 // Layouts
-import UserLayout from "./components/UserLayout";
-import AdminLayout from "./components/AdminLayout";
-import AuthLayout from "./components/AuthLayout";
+import UserLayout from "./components/UserLayout.jsx";
+import AdminLayout from "./components/AdminLayout.jsx";
+import AuthLayout from "./components/AuthLayout.jsx";
 
 // USER pages
-import Home from "./pages/Home";
-import Cars from "./pages/Cars";
-import Profile from "./pages/Profile";
-import LogIn from "./pages/LogIn";
-import Notif from "./pages/Notif";
+import Home from "./pages/Home.jsx";
+import Cars from "./pages/Cars.jsx";
+import Profile from "./pages/Profile.jsx";
+// import LogIn from "./pages/LogIn";
+import LogIn from "./pages/Login.jsx"
+import Notif from "./pages/Notif.jsx";
 
 // ADMIN pages
-import AdminLogin from "./admin/AdminLogin";
-import AdminHome from "./admin/AdminHome";
-import AdminCars from "./admin/AdminCars";
-import AdminBookings from "./admin/AdminBookings";
+import AdminLogin from "./admin/AdminLogin.jsx";
+import AdminHome from "./admin/AdminHome.jsx";
+import AdminCars from "./admin/AdminCars.jsx";
+import AdminBookings from "./admin/AdminBookings.jsx";
 
 // Protected Routes
-import UserProtectRoute from "./components/UserProtectRoute";
-import AdminProtectRoute from "./components/AdminProtectRoute";
+import UserProtectRoute from "./components/UserProtectRoute.jsx";
+import AdminProtectRoute from "./components/AdminProtectRoute.jsx";
 
 function App() {
   return (
