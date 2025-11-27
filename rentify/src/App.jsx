@@ -28,7 +28,7 @@ function App() {
 
       {/* USER LOGIN */}
       <Route
-        path="/login"
+        path="/"
         element={
           <AuthLayout>
             <LogIn />
@@ -48,7 +48,7 @@ function App() {
 
       {/* PUBLIC USER PAGES */}
       <Route
-        path="/"
+        path="/dashboard"
         element={
           <UserLayout>
             <Home />

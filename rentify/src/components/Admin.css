@@ -445,6 +445,6 @@
   }
 
   .bookingTable {
-    min-width: 700px; /* allow horizontal scroll */
+    min-width: 700px; 
   }
 }

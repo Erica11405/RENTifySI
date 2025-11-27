@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Notif() {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const userEmail = localStorage.getItem("userEmail");
 
@@ -35,6 +37,10 @@ function Notif() {
 
   return (
     <div className="notifications-page">
+        <button className="notif-back-btn" onClick={() => navigate("/")}>
+            Back
+        </button>
+
       <h1>Your Notifications</h1>
 
       {notifications.length === 0 ? (
@@ -54,6 +60,7 @@ function Notif() {
             >
               <h3>{notif.car_name}</h3>
 
+              <p><strong>Name:</strong> {notif.fullName}</p>
               <p><strong>Booking ID:</strong> {notif.id}</p>
               <p><strong>Pickup:</strong> {notif.pickup_date}</p>
               <p><strong>Return:</strong> {notif.return_date}</p>
