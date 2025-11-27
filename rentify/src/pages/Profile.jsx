@@ -13,7 +13,7 @@ function Profile() {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:8000/api/bookings/");
+        const response = await axios.get("https://rentifysi.onrender.com/api/bookings/");
         const allBookings = response.data;
 
         // Filter bookings that belong to the logged-in user

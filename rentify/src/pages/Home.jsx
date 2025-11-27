@@ -48,7 +48,7 @@ function Home() {
   const handleSubmit = async (formData) => {
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/book_car/",
+        "https://rentifysi.onrender.com/api/book_car/",
         formData
       );
 
@@ -80,7 +80,7 @@ function Home() {
 
     useEffect(() => {
     const fetchCar = async () => {
-      const response = await axios.get("http://127.0.0.1:8000/api/cars/");
+      const response = await axios.get("https://rentifysi.onrender.com/api/cars/");
       setCars (response.data)
     }
     fetchCar()

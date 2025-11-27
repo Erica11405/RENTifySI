@@ -8,8 +8,8 @@ function AdminHome() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const bookingsResponse = await axios.get("http://127.0.0.1:8000/api/book_car/");
-        const carsResponse = await axios.get("http://127.0.0.1:8000/api/cars/");
+        const bookingsResponse = await axios.get("https://rentifysi.onrender.com/api/book_car/");
+        const carsResponse = await axios.get("https://rentifysi.onrender.com/api/cars/");
         
         setBookingCount(bookingsResponse.data.length);
         setCarCount(carsResponse.data.length);

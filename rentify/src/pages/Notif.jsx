@@ -12,7 +12,7 @@ function Notif() {
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:8000/api/book_car/");
+        const response = await axios.get("https://rentifysi.onrender.com/api/book_car/");
         const allBookings = response.data;
 
 
