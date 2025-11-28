@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 function BookForm({ cars, selectedCar, onSubmit, onClose, message }) {
-
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [selectedCarName, setSelectedCarName] = useState(selectedCar ? selectedCar.name : "");
@@ -9,20 +8,17 @@ function BookForm({ cars, selectedCar, onSubmit, onClose, message }) {
   const [pickup_date, setPickupDate] = useState('');
   const [return_date, setReturndate] = useState('');
   const [image, setImage] = useState(null);
+  const [paymentMode, setPaymentMode] = useState("cash");
 
-  // add total price
   const calculatePrice = () => {
     if (!selectedCarName || !pickup_date || !return_date) return 0;
-
     const car = cars.find(c => c.name === selectedCarName);
     if (!car) return 0;
 
     const carPrice = Number(car.price);
     const driverFee = 800;
-
     const start = new Date(pickup_date);
     const end = new Date(return_date);
-
     const diff = end - start;
     const rentalDays = Math.max(1, diff / (1000 * 60 * 60 * 24));
 
@@ -34,6 +30,7 @@ function BookForm({ cars, selectedCar, onSubmit, onClose, message }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!selectedCarName) { alert("Please select a car."); return; }
 
     const formSubmit = new FormData();
     formSubmit.append("fullName", fullName);
@@ -42,14 +39,10 @@ function BookForm({ cars, selectedCar, onSubmit, onClose, message }) {
     formSubmit.append("pickup_date", pickup_date);
     formSubmit.append("return_date", return_date);
     formSubmit.append("withDriver", withDriver);
-
-    // total price
-    formSubmit.append("total_price", calculatePrice());
-
-    if (selectedCarName === "") {
-      alert("Please select a car.");
-      return;
-    }
+    formSubmit.append("payment_mode", paymentMode);
+    
+    const totalPrice = calculatePrice();
+    formSubmit.append("total_price", totalPrice);
 
     if (image) formSubmit.append("image", image);
 
@@ -59,18 +52,11 @@ function BookForm({ cars, selectedCar, onSubmit, onClose, message }) {
   return (
     <div className="modalForm">
       <div className="modal">
-        <button className="closeBtn" onClick={onClose}>
-          X
-        </button>
-
+        <button className="closeBtn" onClick={onClose}>X</button>
         <h2>Book Your Car Now!!</h2>
-
-        {message && (
-          <p style={{ textAlign: "center", color: "green" }}>{message}</p>
-        )}
+        {message && <p style={{ textAlign: "center", color: "green" }}>{message}</p>}
 
         <form onSubmit={handleSubmit}>
-
           <label>
             Full Name:
             <input className="input" type="text" value={fullName} onChange={(e)=> setFullName(e.target.value)} required />
@@ -83,32 +69,15 @@ function BookForm({ cars, selectedCar, onSubmit, onClose, message }) {
 
           <label>
             Car:
-            <select 
-              className="input" 
-              required 
-              value={selectedCarName} 
-              onChange={(e)=> setSelectedCarName(e.target.value)}
-            >
-              <option value="" disabled>
-                {selectedCar ? selectedCar.name : "Select your preferred car"}
-              </option>
-
-              {cars.map((car) => (
-                <option key={car.id} value={car.name}>
-                  {car.name}
-                </option>
-              ))}
+            <select className="input" required value={selectedCarName} onChange={(e)=> setSelectedCarName(e.target.value)}>
+              <option value="" disabled>{selectedCar ? selectedCar.name : "Select your preferred car"}</option>
+              {cars.map((car) => <option key={car.id} value={car.name}>{car.name}</option>)}
             </select>
           </label>
 
           <label>
             Driver Option:
-            <select 
-              className="input"
-              required
-              value={withDriver}
-              onChange={(e) => setWithDriver(e.target.value)}
-            >
+            <select className="input" value={withDriver} onChange={(e) => setWithDriver(e.target.value)}>
               <option value="withoutDriver">Without Driver</option>
               <option value="withDriver">With Driver</option>
             </select>
@@ -129,10 +98,15 @@ function BookForm({ cars, selectedCar, onSubmit, onClose, message }) {
             <input className="input" type="file" onChange={(e)=> setImage(e.target.files[0])} required />
           </label>
 
-          {/* total price */}
-          <p style={{ fontWeight:"bold", marginTop:"10px" }}>
-            Total Price: ₱{calculatePrice()}
-          </p>
+          <p style={{ fontWeight:"bold", marginTop:"10px" }}>Total Price: ₱{calculatePrice()}</p>
+
+          <label>
+            Mode of payment:
+            <select className="input" value={paymentMode} onChange={(e) => setPaymentMode(e.target.value)}>
+              <option value="cash">Cash</option>
+              <option value="cashless">Cashless (PayPal)</option>
+            </select>
+          </label>
 
           <button type="submit" className="submitBtn">Submit</button>
         </form>

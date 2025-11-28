@@ -1,17 +1,14 @@
 from django.shortcuts import render
 from .models import Car, BookCar
 from .serializers import CarSerializers, BookCarSerializer
-from rest_framework import viewsets, permissions
-from rest_framework import generics
-from .models import BookCar
+from rest_framework import viewsets, permissions, generics
 
-# Create your views here.
-class CarViewSet (viewsets.ModelViewSet):
+class CarViewSet(viewsets.ModelViewSet):
     serializer_class = CarSerializers
     permission_classes = [permissions.AllowAny]
     queryset = Car.objects.all()
 
-class BookCarViewSet (viewsets.ModelViewSet):
+class BookCarViewSet(viewsets.ModelViewSet):
     serializer_class = BookCarSerializer
     permission_classes = [permissions.AllowAny]
     queryset = BookCar.objects.all()
@@ -26,12 +23,12 @@ class BookCarViewSet (viewsets.ModelViewSet):
                 driver_fee = 800
 
                 rental_days = (instance.return_date - instance.pickup_date).days
-                rental_days = max(1, rental_days)  # at least 1 day
+                rental_days = max(1, rental_days)
 
                 if instance.withDriver == "withDriver":
                     total = (car_price * rental_days) + (driver_fee * rental_days)
                 else:
-                    total = (car_price * rental_days)
+                    total = car_price * rental_days
 
                 instance.total_price = total
                 instance.save()
@@ -42,4 +39,3 @@ class BookCarViewSet (viewsets.ModelViewSet):
 class BookCarDetail(generics.RetrieveUpdateAPIView):
     queryset = BookCar.objects.all()
     serializer_class = BookCarSerializer
-

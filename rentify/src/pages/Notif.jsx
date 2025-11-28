@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Paypal from "../components/Paypal";
 
 function Notif() {
   const [notifications, setNotifications] = useState([]);
@@ -8,6 +9,7 @@ function Notif() {
   const navigate = useNavigate();
 
   const userEmail = localStorage.getItem("userEmail");
+
   const API_URL =
     window.location.hostname === "localhost"
       ? "http://127.0.0.1:8000"
@@ -19,6 +21,7 @@ function Notif() {
         const response = await axios.get(`${API_URL}/api/book_car/`);
         const allBookings = response.data;
 
+        // Filter by current user
         const myBookings = allBookings.filter((b) => b.email === userEmail);
 
         setNotifications(myBookings);
@@ -28,13 +31,10 @@ function Notif() {
         setLoading(false);
       }
     };
-
     fetchNotifications();
   }, [userEmail]);
 
-  if (loading) {
-    return <p>Loading notifications...</p>;
-  }
+  if (loading) return <p>Loading notifications...</p>;
 
   return (
     <div className="notifications-page">
@@ -59,8 +59,7 @@ function Notif() {
                   : "notif-pending"
               }`}
             >
-              <h3>{notif.car_name || notif.car}</h3>
-
+              <h3>{notif.car || "Car not found"}</h3>
               <p><strong>Name:</strong> {notif.fullName}</p>
               <p><strong>Booking ID:</strong> {notif.id}</p>
               <p><strong>Pickup:</strong> {notif.pickup_date}</p>
@@ -73,9 +72,11 @@ function Notif() {
               {notif.status === "Accepted" && (
                 <>
                   <p className="accepted-text">🎉 Your booking has been accepted!</p>
-
-                  {/* total price*/}
                   <p><strong>Total Price:</strong> ₱{notif.total_price}</p>
+
+                  {notif.payment_mode === "cashless" && Number(notif.total_price) > 0 && (
+                    <Paypal amount={Number(notif.total_price)} />
+                  )}
                 </>
               )}
 

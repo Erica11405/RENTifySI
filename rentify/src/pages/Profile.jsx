@@ -62,7 +62,7 @@ function Profile() {
   return (
     <div className="profile-page">
       
-      <button className="back-btn" onClick={() => navigate("/dashboard")}>X</button>
+      <button className="back-btn" onClick={() => navigate("/dashboard")}>Back</button>
 
       <h1>Your Profile</h1>
 
