@@ -115,7 +115,7 @@ function AdminCars() {
         // Replaced alert with console.log for compliance
         console.log("Car updated successfully!");
       } else {
-        await axios.post(API_URL, formDataToSend, {
+        await axios.post(`${API_URL}/api/cars/` , formDataToSend, {
           headers: {
             "Content-Type": "multipart/form-data"
           }
