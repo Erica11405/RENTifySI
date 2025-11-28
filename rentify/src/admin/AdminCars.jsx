@@ -107,7 +107,7 @@ function AdminCars() {
 
     try {
       if (editMode) {
-        await axios.put(`${API_URL}${currentCar.id}/`, formDataToSend, {
+        await axios.put(`${API_URL}/api/cars/${currentCar.id}/`, formDataToSend, {
           headers: {
             "Content-Type": "multipart/form-data"
           }
@@ -136,7 +136,7 @@ function AdminCars() {
   const handleDelete = async (carId) => {
     if (window.confirm("Are you sure you want to delete this car?")) {
       try {
-        await axios.delete(`${API_URL}/${carId}/`);
+        await axios.delete(`${API_URL}/api/cars/${carId}/`);
         // Replaced alert with console.log for compliance
         console.log("Car deleted successfully!");
         fetchCars();
