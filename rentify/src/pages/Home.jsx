@@ -15,6 +15,8 @@ function Home() {
   const [searchQuery, setSearchQuery] = useState('');
   const filteredCars = cars.filter((car) => car.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
+  const API_URL = window.location.hostname === "localhost" ? "http://127.0.0.1:8000" : "https://rentifysi.onrender.com";
+
   const navigate = useNavigate();
 
   // Open booking form from hero button (no car pre-selected)
@@ -48,7 +50,7 @@ function Home() {
   const handleSubmit = async (formData) => {
     try {
       const response = await axios.post(
-        "https://rentifysi.onrender.com/api/book_car/",
+        `${API_URL}/api/book_car/`,
         formData
       );
 
@@ -80,7 +82,7 @@ function Home() {
 
     useEffect(() => {
     const fetchCar = async () => {
-      const response = await axios.get("https://rentifysi.onrender.com/api/cars/");
+      const response = await axios.get(`${API_URL}/api/cars/`);
       setCars (response.data)
     }
     fetchCar()

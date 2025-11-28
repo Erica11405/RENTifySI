@@ -17,3 +17,4 @@ class BookCar (models.Model):
     return_date = models.DateField()
     image = models.ImageField(upload_to="bookings/", blank = True, null = True)
     status = models.CharField(max_length=20, default="Pending")
+    total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)

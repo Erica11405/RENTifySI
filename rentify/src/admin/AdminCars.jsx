@@ -15,7 +15,7 @@ function AdminCars() {
   });
   const [imagePreview, setImagePreview] = useState(null);
 
-  const API_URL = "https://rentifysi.onrender.com/api/cars/";
+  const API_URL = window.location.hostname === "localhost" ? "http://127.0.0.1:8000" : "https://rentifysi.onrender.com";
 
   useEffect(() => {
     fetchCars();
@@ -73,7 +73,7 @@ function AdminCars() {
       capacity: car.capacity,
       image: null
     });
-    setImagePreview(`https://rentifysi.onrender.com${car.image}`);
+    setImagePreview(`${API_URL}${car.image}`);
     setShowModal(true);
   };
 
@@ -178,7 +178,7 @@ function AdminCars() {
                 <td className="car-table-data">{car.id}</td>
                 <td className="car-table-data">
                   <img 
-                    src={`https://rentifysi.onrender.com${car.image}`} 
+                    src={`${API_URL}${car.image}`} 
                     alt={car.name}
                     className="car-thumbnail"
                   />

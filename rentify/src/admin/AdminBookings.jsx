@@ -5,10 +5,13 @@ function AdminBookings() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const API_URL = window.location.hostname === "localhost" ? "http://127.0.0.1:8000" : "https://rentifysi.onrender.com";
+
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const response = await axios.get("https://rentifysi.onrender.com/api/book_car/");
+        // const response = await axios.get("https://rentifysi.onrender.com/api/book_car/");
+        const response = await axios.get(`${API_URL}/api/book_car/`)
         setBookings(response.data);
         setLoading(false);
       } catch (error) {
@@ -22,7 +25,7 @@ function AdminBookings() {
   // Update status (accept or decline)
   const updateStatus = async (id, status) => {
     try {
-      await axios.patch(`https://rentifysi.onrender.com/api/book_car/${id}/`, {
+      await axios.patch(`${API_URL}/api/book_car/${id}/`, {
         status: status,
       });
 

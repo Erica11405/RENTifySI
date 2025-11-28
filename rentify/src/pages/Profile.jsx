@@ -4,19 +4,23 @@ import { useNavigate } from "react-router-dom";
 
 function Profile() {
   const [bookings, setBookings] = useState([]);
+  const [isEditingName, setIsEditingName] = useState(false);
+  const [editedName, setEditedName] = useState("");
   const navigate = useNavigate();
 
-  // Get stored user info (from login)
+  //store user info 
   const userName = localStorage.getItem("userName");
   const userEmail = localStorage.getItem("userEmail");
+
+  const API_URL = window.location.hostname === "localhost" ? "http://127.0.0.1:8000" : "https://rentifysi.onrender.com";
 
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const response = await axios.get("https://rentifysi.onrender.com/api/bookings/");
+        const response = await axios.get(`${API_URL}/api/bookings/`);
         const allBookings = response.data;
 
-        // Filter bookings that belong to the logged-in user
+      
         const myBookings = allBookings.filter(
           (b) => b.email === userEmail
         );
@@ -36,10 +40,29 @@ function Profile() {
     navigate("/");
   };
 
+  const handleEditName = () => {
+    setEditedName(userName || "");
+    setIsEditingName(true);
+  };
+
+  const handleSaveName = () => {
+    if (editedName.trim()) {
+      localStorage.setItem("userName", editedName.trim());
+      setIsEditingName(false);
+     
+      window.location.reload();
+    }
+  };
+
+  const handleCancelEdit = () => {
+    setIsEditingName(false);
+    setEditedName("");
+  };
+
   return (
     <div className="profile-page">
       
-      <button className="back-btn" onClick={() => navigate("/")}>X</button>
+      <button className="back-btn" onClick={() => navigate("/dashboard")}>X</button>
 
       <h1>Your Profile</h1>
 
@@ -52,7 +75,26 @@ function Profile() {
         />
 
         <div className="profile-details">
-          <p><strong>Name:</strong> {userName || "Not Provided"}</p>
+          <p>
+            <strong>Name:</strong>{" "}
+            {isEditingName ? (
+              <>
+                <input
+                  type="text"
+                  value={editedName}
+                  onChange={(e) => setEditedName(e.target.value)}
+                  placeholder="Enter your name"
+                />
+                <button onClick={handleSaveName}>Save</button>
+                <button onClick={handleCancelEdit}>Cancel</button>
+              </>
+            ) : (
+              <>
+                {userName || "Not Provided"}
+                <button onClick={handleEditName}>Edit</button>
+              </>
+            )}
+          </p>
           <p><strong>Email:</strong> {userEmail || "Not Provided"}</p>
         </div>
 

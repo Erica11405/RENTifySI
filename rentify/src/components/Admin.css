@@ -419,12 +419,12 @@
   color: #333;
 }
 
-/* Last Row Cleanup */
+
 .bookingTable tbody tr:last-child td {
   border-bottom: none;
 }
 
-/* Image Link */
+/* Imag */
 .bookingTable a {
   color: #2980b9;
   text-decoration: none;
@@ -437,7 +437,7 @@
   text-decoration: underline;
 }
 
-/* Responsive */
+
 @media (max-width: 900px) {
   .admin-content {
     padding: 15px;
@@ -448,3 +448,5 @@
     min-width: 700px; 
   }
 }
+
+
