@@ -136,7 +136,7 @@ function AdminCars() {
   const handleDelete = async (carId) => {
     if (window.confirm("Are you sure you want to delete this car?")) {
       try {
-        await axios.delete(`${API_URL}${carId}/`);
+        await axios.delete(`${API_URL}/${carId}/`);
         // Replaced alert with console.log for compliance
         console.log("Car deleted successfully!");
         fetchCars();
