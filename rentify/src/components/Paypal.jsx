@@ -47,10 +47,10 @@ export default function Paypal({ amount, bookingId, onPaymentSuccess }) {
           console.log("Payment successful:", order);
           alert("Payment completed successfully!");
 
-          await axios.patch(
-            `https://rentifysi.onrender.com/api/book_car/${bookingId}/`,
-            { status: "done" }
-          );
+          // await axios.patch(
+          //   `https://rentifysi.onrender.com/api/book_car/${bookingId}/`,
+          //   { status: "done" }
+          // );
 
         
           if (onPaymentSuccess) onPaymentSuccess();
