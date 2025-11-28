@@ -15,7 +15,10 @@ function AdminCars() {
   });
   const [imagePreview, setImagePreview] = useState(null);
 
-  const API_URL = window.location.hostname === "localhost" ? "http://127.0.0.1:8000" : "https://rentifysi.onrender.com";
+  const API_URL =
+    window.location.hostname === "localhost"
+      ? "http://127.0.0.1:8000"
+      : "https://rentifysi.onrender.com";
 
   useEffect(() => {
     fetchCars();
@@ -23,7 +26,8 @@ function AdminCars() {
 
   const fetchCars = async () => {
     try {
-      const response = await axios.get(API_URL);
+      const response = await axios.get(`${API_URL}/api/cars/`);
+
       setCars(response.data);
       setLoading(false);
     } catch (error) {

@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
+import axios from "axios";
 
-export default function Paypal({ amount }) {
+export default function Paypal({ amount, bookingId, onPaymentSuccess }) {
   const paypalRef = useRef();
   const [loaded, setLoaded] = useState(false);
 
@@ -12,7 +13,7 @@ export default function Paypal({ amount }) {
 
     const script = document.createElement("script");
     script.src =
-      "https://www.paypal.com/sdk/js?client-id=AQs1Es03lDnrOyrXCVEsEcrVqan-k-1llTNFVQ54KTDZVnIkkY96aTKW8FEMTfMeI3ZL1lEdrCOsG99Y&currency=PHP&intent=capture&components=buttons,funding-eligibility";
+      "https://www.paypal.com/sdk/js?client-id=AQs1Es03lDnrOyrXCVEsEcrVqan-k-1llTNFVQ54KTDZVnIkkY96aTKW8FEMTfMeI3ZL1lEdrCOsG99Y&currency=PHP";
     script.async = true;
     script.onload = () => setLoaded(true);
     script.onerror = () => console.error("PayPal SDK failed to load");
@@ -24,57 +25,46 @@ export default function Paypal({ amount }) {
 
     paypalRef.current.innerHTML = "";
 
-    // PayPal button
-    window.paypal.Buttons({
-      style: {
-        layout: "horizontal",
-        height: 25,
-        tagline: false,
-      },
-      fundingSource: window.paypal.FUNDING.PAYPAL,
-      createOrder: (data, actions) => {
-        return actions.order.create({
-          purchase_units: [
-            { amount: { currency_code: "PHP", value: Number(amount).toString() } },
-          ],
-        });
-      },
-      onApprove: async (data, actions) => {
-        const order = await actions.order.capture();
-        console.log("PayPal Payment successful:", order);
-        alert("Payment completed successfully!");
-      },
-      onError: (err) => {
-        console.error("PayPal Error:", err);
-        alert("Payment failed. Please try again.");
-      },
-    }).render(paypalRef.current);
+    const createButton = (fundingSource) => {
+      window.paypal.Buttons({
+        fundingSource,
+        style: {
+          layout: "horizontal",
+          height: 35,
+          tagline: false,
+        },
+        createOrder: (data, actions) => {
+          return actions.order.create({
+            purchase_units: [
+              {
+                amount: { currency_code: "PHP", value: Number(amount).toString() },
+              },
+            ],
+          });
+        },
+        onApprove: async (data, actions) => {
+          const order = await actions.order.capture();
+          console.log("Payment successful:", order);
+          alert("Payment completed successfully!");
 
-    // Card button
-    window.paypal.Buttons({
-      style: {
-        layout: "horizontal",
-        height: 25,
-        tagline: false,
-      },
-      fundingSource: window.paypal.FUNDING.CARD,
-      createOrder: (data, actions) => {
-        return actions.order.create({
-          purchase_units: [
-            { amount: { currency_code: "PHP", value: Number(amount).toString() } },
-          ],
-        });
-      },
-      onApprove: async (data, actions) => {
-        const order = await actions.order.capture();
-        console.log("Card Payment successful:", order);
-        alert("Card payment completed successfully!");
-      },
-      onError: (err) => {
-        console.error("Card Payment Error:", err);
-        alert("Card payment failed. Please try again.");
-      },
-    }).render(paypalRef.current);
+          await axios.patch(
+            `https://rentifysi.onrender.com/api/book_car/${bookingId}/`,
+            { status: "done" }
+          );
+
+        
+          if (onPaymentSuccess) onPaymentSuccess();
+        },
+        onError: (err) => {
+          console.error("PayPal Error:", err);
+          alert("Payment failed. Please try again.");
+        },
+      }).render(paypalRef.current);
+    };
+
+    createButton(window.paypal.FUNDING.PAYPAL);
+    createButton(window.paypal.FUNDING.CARD);
+
   }, [loaded, amount]);
 
   return <div ref={paypalRef} className="paypal-buttons-container"></div>;

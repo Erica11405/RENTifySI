@@ -8,21 +8,24 @@ function Profile() {
   const [editedName, setEditedName] = useState("");
   const navigate = useNavigate();
 
-  //store user info 
+  // Get user info
   const userName = localStorage.getItem("userName");
   const userEmail = localStorage.getItem("userEmail");
 
-  const API_URL = window.location.hostname === "localhost" ? "http://127.0.0.1:8000" : "https://rentifysi.onrender.com";
+  const API_URL =
+    window.location.hostname === "localhost"
+      ? "http://127.0.0.1:8000"
+      : "https://rentifysi.onrender.com";
 
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const response = await axios.get(`${API_URL}/api/bookings/`);
+
+        const response = await axios.get(`${API_URL}/api/book_car/`);
         const allBookings = response.data;
 
-      
         const myBookings = allBookings.filter(
-          (b) => b.email === userEmail
+          (booking) => booking.email === userEmail
         );
 
         setBookings(myBookings);
@@ -49,7 +52,6 @@ function Profile() {
     if (editedName.trim()) {
       localStorage.setItem("userName", editedName.trim());
       setIsEditingName(false);
-     
       window.location.reload();
     }
   };
@@ -62,11 +64,13 @@ function Profile() {
   return (
     <div className="profile-page">
       
-      <button className="back-btn" onClick={() => navigate("/dashboard")}>Back</button>
+      <button className="back-btn" onClick={() => navigate("/dashboard")}>
+        Back
+      </button>
 
       <h1>Your Profile</h1>
 
-      {/* PROFILE  */}
+      {/* Profile info */}
       <div className="profile-info">
         <img
           src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
@@ -83,7 +87,6 @@ function Profile() {
                   type="text"
                   value={editedName}
                   onChange={(e) => setEditedName(e.target.value)}
-                  placeholder="Enter your name"
                 />
                 <button onClick={handleSaveName}>Save</button>
                 <button onClick={handleCancelEdit}>Cancel</button>
@@ -95,6 +98,7 @@ function Profile() {
               </>
             )}
           </p>
+
           <p><strong>Email:</strong> {userEmail || "Not Provided"}</p>
         </div>
 
@@ -111,7 +115,8 @@ function Profile() {
         <div className="booking-list">
           {bookings.map((booking) => (
             <div key={booking.id} className="booking-card">
-              <h3>{booking.car_name}</h3>
+              <h3>{booking.car_name || `Car: ${booking.car}`}</h3>
+
               <p><strong>Full Name:</strong> {booking.fullName}</p>
               <p><strong>Email:</strong> {booking.email}</p>
               <p><strong>Pickup:</strong> {booking.pickup_date}</p>
