@@ -452,7 +452,7 @@ h1{
 }
 
 .notification-card p {
-  margin: 4px 0;
+  margin: 10px;
 }
 
 /* Status styles */
@@ -481,4 +481,17 @@ h1{
 .pending-text {
   color: orange;
   font-weight: bold;
+}
+
+
+/* PayPal btn */
+.paypal-buttons-container {
+  display: flex;
+  gap: 20px; 
+  justify-content: flex-start;
+}
+
+.paypal-buttons-container iframe {
+  height: 100px !important;   
+  max-width: 300px;
 }

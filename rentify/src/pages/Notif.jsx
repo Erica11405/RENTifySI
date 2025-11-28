@@ -21,7 +21,7 @@ function Notif() {
         const response = await axios.get(`${API_URL}/api/book_car/`);
         const allBookings = response.data;
 
-        // Filter by current user
+
         const myBookings = allBookings.filter((b) => b.email === userEmail);
 
         setNotifications(myBookings);
@@ -59,11 +59,6 @@ function Notif() {
                   : "notif-pending"
               }`}
             >
-              <h3>{notif.car || "Car not found"}</h3>
-              <p><strong>Name:</strong> {notif.fullName}</p>
-              <p><strong>Booking ID:</strong> {notif.id}</p>
-              <p><strong>Pickup:</strong> {notif.pickup_date}</p>
-              <p><strong>Return:</strong> {notif.return_date}</p>
 
               {notif.status === "Pending" && (
                 <p className="pending-text">Status: Pending — Waiting for admin approval.</p>
@@ -72,17 +67,25 @@ function Notif() {
               {notif.status === "Accepted" && (
                 <>
                   <p className="accepted-text">🎉 Your booking has been accepted!</p>
-                  <p><strong>Total Price:</strong> ₱{notif.total_price}</p>
-
-                  {notif.payment_mode === "cashless" && Number(notif.total_price) > 0 && (
-                    <Paypal amount={Number(notif.total_price)} />
-                  )}
+                  
                 </>
               )}
 
               {notif.status === "Declined" && (
                 <p className="declined-text">❌ Your booking has been declined.</p>
               )}
+
+              <h3>{notif.car || "Car not found"}</h3>
+              <p><strong>Name:</strong> {notif.fullName}</p>
+              <p><strong>Booking ID:</strong> {notif.id}</p>
+              <p><strong>Pickup:</strong> {notif.pickup_date}</p>
+              <p><strong>Return:</strong> {notif.return_date}</p>
+              <p><strong>Total Price:</strong> ₱{notif.total_price}</p>
+
+                {notif.payment_mode === "cashless" && Number(notif.total_price) > 0 && (
+                  <Paypal amount={Number(notif.total_price)} />
+                )}
+              
             </div>
           ))}
         </div>

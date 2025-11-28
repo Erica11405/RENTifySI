@@ -86,6 +86,25 @@ function Cars() {
         </div>
       </div>
 
+      {/* About Section */}
+      <section id="about" className="about">
+        <h2>About Us</h2>
+        <p>
+          We provide a seamless car rental experience with a wide range of
+          vehicles and flexible booking options. Whether you need a car for a
+          day or a week, we got you covered.
+        </p>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="contact">
+        <h2>Contact Us</h2>
+        <p>
+          Email us at <strong>renify@gmail.com</strong> or call{" "}
+          <strong>0912-345-6789</strong> for more questions
+        </p>
+      </section>
+
       {/* MODAL */}
       {showCarDetails && (
         <CarDetails

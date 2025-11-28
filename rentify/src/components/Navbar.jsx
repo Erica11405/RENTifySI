@@ -22,7 +22,7 @@ function Navbar( {searchQuery, setSearchQuery } ) {
       </div>
       
       <ul className="nav-links">
-        <li><Link to="/">Home</Link></li>
+        <li><Link to="/dashboard">Home</Link></li>
         <li><a href="#cars">Cars</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>

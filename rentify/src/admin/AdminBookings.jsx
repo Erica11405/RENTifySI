@@ -22,14 +22,13 @@ function AdminBookings() {
     fetchBookings();
   }, []);
 
-  // Update status (accept or decline)
+  // status (accept or decline)
   const updateStatus = async (id, status) => {
     try {
       await axios.patch(`${API_URL}/api/book_car/${id}/`, {
         status: status,
       });
 
-      // Update UI instantly without reload
       setBookings((prev) =>
         prev.map((b) =>
           b.id === id ? { ...b, status: status } : b
@@ -85,7 +84,7 @@ function AdminBookings() {
                 <td>{booking.pickup_date}</td>
                 <td>{booking.return_date}</td>
 
-                {/* Image link */}
+                {/* drivers licence*/}
                 <td>
                   {booking.image ? (
                     <a href={booking.image} target="_blank" rel="noopener noreferrer">
